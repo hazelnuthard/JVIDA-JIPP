@@ -6,6 +6,6 @@ Pedro Evaristo de Oliveira
 Priscilla de Souza Jardim
 */
 
-void comecar();
-void cria_mundo(int);
-void insere_cel();
+void comecar();  //inicia o programa
+void cria_mundo(int);  //preenche a matriz da dimensao desejada com '.'
+void insere_cel();  //insere uma celula no mundo trocando '.' por 'O' ou exclui uma celula existente
