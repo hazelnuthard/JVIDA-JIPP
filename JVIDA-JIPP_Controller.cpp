@@ -13,7 +13,22 @@ Priscilla de Souza Jardim
 
 void comecar()
 {	
-	dime = dimensao();
+	do
+	{
+		dime = dimensao();
+		
+		if(dime < 10 || dime > 60)
+		{
+			apresenta_mensagem(" Tamanho invalido!\n");
+			limpatela();
+		}
+		else
+		{
+			break;
+		}
+	}
+	while(1);
+	
 	cria_mundo(dime);
 	
 	int resp;
@@ -25,16 +40,19 @@ void comecar()
 		switch(resp)
 		{
 			case 1:
+				titulo(1);
 				apresenta_mundo(mundo, dime);
 				limpatela();
 				break;
 			case 2:
 				insere_cel();
-				limpatela();
+				break;
+			case 3:
+				limpa_mapa();
 				break;
 		}
 	}
-	while(resp != 3);
+	while(resp != 4);
 }
 
 void cria_mundo(int dim)
@@ -43,7 +61,7 @@ void cria_mundo(int dim)
 	{
 		for(int j = 0; j < dime; j++)
 		{
-			mundo[i][j] = '.';	//definicao de quarto vazio
+			mundo[i][j] = '.';
 		}
 	}
 }
@@ -51,66 +69,98 @@ void cria_mundo(int dim)
 void insere_cel()
 {	
 	int l, c;
-	char resp;
-	
+	char ex, resp;
 	do
-	{
-		apresenta_mundo(mundo, dime);
-		l = coord_x();
-		
-		if(l < 0 || l >= dime)
-		{
-			resp_invalida();
-		}
-		else
-		{
-			break;
-		}
-	}
-	while(1);
-	
-	do
-	{
-		c = coord_y();
-		
-		if(c < 0 || c >= dime)
-		{
-			resp_invalida();
-			apresenta_mundo(mundo, dime);
-		}
-		else
-		{
-			break;
-		}
-	}
-	while(1);
-	
-	if(mundo[l][c] == 'O')
 	{
 		do
 		{
+			titulo(2);
 			apresenta_mundo(mundo, dime);
-			resp = exclui(l,c);
+			l = coord_x();
 			
-			if(resp == 'S')
+			if(l == 60)
 			{
-				mundo[l][c] = '.';
-				break;
+				menu_geral();
 			}
-			else if(resp == 'N')
+			else if(l < 0 || l >= dime)
 			{
-				break;
+				apresenta_mensagem(" Linha invalida!\n");
+				limpatela();
 			}
 			else
 			{
-				resp_invalida();
+				break;
 			}
 		}
 		while(1);
+		
+		do
+		{
+			c = coord_y();
+			
+			if(c < 0 || c >= dime)
+			{
+				apresenta_mensagem(" Coluna invalida!\n");
+				limpatela();
+				titulo(2);
+				apresenta_mundo(mundo, dime);
+			}
+			else
+			{
+				break;
+			}
+		}
+		while(1);
+		
+		if(mundo[l][c] == 'O')
+		{
+			do
+			{
+				titulo(2);
+				apresenta_mundo(mundo, dime);
+				ex = exclui(l,c);
+				
+				if(ex == 'S')
+				{
+					mundo[l][c] = '.';
+					break;
+				}
+				else if(ex == 'N')
+				{
+					break;
+				}
+				else
+				{
+					apresenta_mensagem(" Opcao invalida!");
+				}
+			}
+			while(1);
+		}
+		else
+		{
+			mundo[l][c] = 'O';
+		}
+		titulo(2);
+		apresenta_mundo(mundo, dime);
+		resp = continuar_inserindo();
 	}
-	else
-	{
-		mundo[l][c] = 'O';
-	}
+	while(resp == 'S');
+}
+
+void limpa_mapa()
+{
+	char r;
+	
+	titulo(3);
 	apresenta_mundo(mundo, dime);
+	r = menu_limpa();
+	
+	if(r == 'S')
+	{
+		cria_mundo(dime);
+		titulo(3);
+		apresenta_mundo(mundo, dime);
+		apresenta_mensagem(" MUNDO REINICIADO COM SUCESSO\n");
+		limpatela();
+	}
 }

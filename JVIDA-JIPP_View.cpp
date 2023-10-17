@@ -13,47 +13,37 @@ Priscilla de Souza Jardim
 
 int dimensao()
 {
-	do
-	{
-		int d;
-		printf(" Digite o tamanho do mundo (minimo 10 e maximo 60): ");
-		scanf("%d", &d);
-		
-		if(d < 10 || d > 60)
-		{
-			resp_invalida();
-		}
-		else
-		{
-			system("cls");
-			return d;
-		}
-	}
-	while(1);
+	int d;
+	
+	printf(" Digite o tamanho do mundo (minimo 10 e maximo 60): ");
+	scanf("%d", &d);
+	return d;
 }
 
 int menu_geral()
 {
+	int op;
+	
 	do
 	{
-		int op;
-		
+		system("cls");
 		printf("      Projeto JOGO DA VIDA      \n");
 		printf(" ===============================\n");
 		printf(" 1-Apresentar o Mundo\n");
 		printf(" 2-Incluir/Excluir celulas vivas\n");
-		printf(" 3-Sair\n");
+		printf(" 3-Limpar totalmente o mapa\n");
+		printf(" 4-Sair\n");
 		printf(" ===============================\n");
 		printf(" Resp: ");
 		scanf("%d", &op);
 		
-		if(op < 0 || op > 3)
+		if(op < 0 || op > 4)
 		{
-			resp_invalida();
+			printf(" Opcao invalida!\n");
+			system("pause");
 		}
 		else
 		{
-			system("cls");
 			return op;
 		}
 	}
@@ -62,7 +52,6 @@ int menu_geral()
 
 void apresenta_mundo(char m[60][60], int dim)
 {
-	system("cls");
 	printf(" ================================");
 	for(int k = 0; k < (dim-10); k++)
 	{
@@ -92,40 +81,24 @@ void apresenta_mundo(char m[60][60], int dim)
 	printf("\n\n");
 }
 
-void resp_invalida()
-{
-	system("cls");
-	printf(" RESPOSTA INVALIDA\n");
-	system("pause");
-	system("cls");
-}
-
 int coord_x()
 { 
-	do
-	{
-		int l;
+	int l;
+
+	printf(" Digite a linha desejada (60 para voltar ao menu): ");
+	scanf("%d", &l);
 	
-		printf(" Digite a linha desejada: ");
-		scanf("%d", &l);
-		
-		return l;
-	}
-	while(1);
+	return l;
 }
 
 int coord_y()
 {
-	do
-	{
-		int c;
+	int c;
+
+	printf(" Digite a coluna desejada: ");
+	scanf("%d", &c);
 	
-		printf(" Digite a coluna desejada: ");
-		scanf("%d", &c);
-		
-		return c;
-	}
-	while(1);
+	return c;
 }
 
 char exclui(int li, int col)
@@ -149,4 +122,44 @@ void limpatela()
 	printf(" ");
 	system("pause");
 	system("cls");
+}
+
+void titulo(int op)
+{
+	system("cls");
+	switch(op)
+	{
+		case 1:
+			printf(" APRESENTACAO DO MUNDO\n");
+			break;
+		case 2:
+			printf(" INCLUIR/EXCLUIR CELULAS\n");
+			break;
+		case 3:
+			printf(" LIMPAR O MAPA\n");
+	}
+}
+
+void apresenta_mensagem(char m[100])
+{
+	printf("%s\n", m);
+}
+
+char continuar_inserindo()
+{
+	char r;
+	printf(" Deseja continuar inserindo celulas no mundo? (S/N) ");
+	scanf(" %c", &r);
+	r = toupper(r);
+	return r;
+}
+
+char menu_limpa()
+{
+	char r;
+	
+	printf(" Deseja realmente limpar todas as celulas do mapa? (S/N) ");
+	scanf(" %c", &r);
+	r = toupper(r);
+	return r;
 }
