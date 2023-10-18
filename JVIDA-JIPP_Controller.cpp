@@ -129,20 +129,22 @@ void insere_cel()
 				{
 					break;
 				}
-				else
-				{
-					apresenta_mensagem(" Opcao invalida!");
-				}
 			}
 			while(1);
 		}
 		else
 		{
 			mundo[l][c] = 'O';
+			
 		}
-		titulo(2);
-		apresenta_mundo(mundo, dime);
-		resp = continuar_inserindo();
+		
+		do
+		{
+			titulo(2);
+			apresenta_mundo(mundo, dime);
+			resp = continuar_inserindo();
+		}
+		while(resp != 'S' && resp != 'N');
 	}
 	while(resp == 'S');
 }
@@ -160,7 +162,7 @@ void limpa_mapa()
 		cria_mundo(dime);
 		titulo(3);
 		apresenta_mundo(mundo, dime);
-		apresenta_mensagem(" MUNDO REINICIADO COM SUCESSO\n");
+		apresenta_mensagem(" Mundo reiniciado com sucesso!\n");
 		limpatela();
 	}
 }

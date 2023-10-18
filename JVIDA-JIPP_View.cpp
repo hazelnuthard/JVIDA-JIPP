@@ -104,17 +104,19 @@ int coord_y()
 char exclui(int li, int col)
 {
 	char r;
+
+	printf(" Ja ha uma celula na posicao (%d,%d)\n", li, col);
+	printf(" Deseja exclui-la? (S/N) ");
+	scanf(" %c", &r);
+	r = toupper(r);
 	
-	do
+	if(r != 'S' && r != 'N')
 	{
-		printf(" Ja ha uma celula na posicao (%d,%d)\n", li, col);
-		printf(" Deseja exclui-la? (S/N) ");
-		scanf(" %c", &r);
-		r = toupper(r);
-		
-		return r;
+		printf(" Opcao invalida!\n");
+		system("pause");
 	}
-	while(1);
+	
+	return r;
 }
 
 void limpatela()
@@ -151,6 +153,12 @@ char continuar_inserindo()
 	printf(" Deseja continuar inserindo celulas no mundo? (S/N) ");
 	scanf(" %c", &r);
 	r = toupper(r);
+	
+	if(r != 'S' && r != 'N')
+	{
+		printf(" Opcao invalida!\n");
+		system("pause");
+	}
 	return r;
 }
 
