@@ -70,7 +70,14 @@ void apresenta_mundo(char m[60][60], int dim, char celv)
 		printf("%3d", i);
 		for(int j = 0; j < dim; j++)
 		{
-			printf("%3c", m[i][j]);
+			if(m[i][j] == '+' && celv == 'N')
+			{
+				printf("%3c", '.');
+			}
+			else
+			{
+				printf("%3c", m[i][j]);
+			}
 		}
 		printf("\n");
 	}
@@ -162,12 +169,10 @@ char menu_limpa()
 	return r;
 }
 
-char cel_viz(char cel)
+char menu_cel_viz(char cel)
 {
-	char r, c;
-	
-	c = cel;
-	
+	char r;
+
 	if(cel == 'N')
 	{
 		printf(" Deseja mostrar as celulas vizinhas mortas? (S/N) ");

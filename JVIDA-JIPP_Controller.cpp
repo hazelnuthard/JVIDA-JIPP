@@ -48,8 +48,7 @@ void comecar()
 				insere_cel();
 				break;
 			case 3:
-				titulo(3);
-				celviz = cel_viz(celviz);
+				cel_vizinhas();
 				break;
 			case 4:
 				limpa_mapa();
@@ -146,6 +145,37 @@ void insere_cel()
 		else
 		{
 			mundo[l][c] = 'O';
+			
+			int il = -1, fl = 1, ic = -1, fc = 1, k;
+			
+			if(l == 0)
+			{
+				il = 0;
+			}
+			else if(l == dime-1)
+			{
+				fl = 0;
+			}
+			
+			if(c == 0)
+			{
+				ic = 0;
+			}
+			else if(c == dime-1)
+			{
+				fc = 0;
+			}
+
+			for(il; il <= fl; il++)
+			{
+				for(k = ic; k <= fc; k++)
+				{
+					if(mundo[l+il][c+k] == '.')
+					{
+						mundo[l+il][c+k] = '+';
+					}
+				}
+			}
 		}
 	}
 	while(1);
@@ -166,5 +196,22 @@ void limpa_mapa()
 		apresenta_mundo(mundo, dime, celviz);
 		apresenta_mensagem(" Mundo reiniciado com sucesso!\n");
 		limpatela();
+	}
+}
+
+void cel_vizinhas()
+{
+	char i = celviz;
+	
+	titulo(3);
+	apresenta_mundo(mundo, dime, celviz);
+	celviz = menu_cel_viz(celviz);
+	
+	if(i != celviz)
+	{
+	titulo(3);
+	apresenta_mundo(mundo, dime, celviz);
+	apresenta_mensagem(" Configuracao alterada com sucesso!\n");
+	limpatela();
 	}
 }
