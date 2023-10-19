@@ -12,8 +12,9 @@ int coord_x();  //recebe a linha de onde o usuario deseja inserir a celula
 int coord_y();  //recebe a coluna de onde o usuario deseja inserir a celula
 char exclui(int, int);  //confirma se o usuario deseja excluir a celula
 char continuar_inserindo();
-void apresenta_mundo(char, int);  //apresenta a matriz do mundo
+void apresenta_mundo(char, int, char);  //apresenta a matriz do mundo
 void limpatela();  //organiza melhor o codigo removendo acoes anteriores da tela
 void titulo(int);
 void apresenta_mensagem(char);
 char menu_limpa();
+char cel_viz(char cel);

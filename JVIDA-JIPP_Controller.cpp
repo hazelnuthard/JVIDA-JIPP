@@ -41,18 +41,22 @@ void comecar()
 		{
 			case 1:
 				titulo(1);
-				apresenta_mundo(mundo, dime);
+				apresenta_mundo(mundo, dime, celviz);
 				limpatela();
 				break;
 			case 2:
 				insere_cel();
 				break;
 			case 3:
+				titulo(3);
+				celviz = cel_viz(celviz);
+				break;
+			case 4:
 				limpa_mapa();
 				break;
 		}
 	}
-	while(resp != 4);
+	while(resp != 5);
 }
 
 void cria_mundo(int dim)
@@ -69,20 +73,17 @@ void cria_mundo(int dim)
 void insere_cel()
 {	
 	int l, c;
-	char ex, resp;
+	char ex;
+	
 	do
 	{
 		do
 		{
 			titulo(2);
-			apresenta_mundo(mundo, dime);
+			apresenta_mundo(mundo, dime, celviz);
 			l = coord_x();
 			
-			if(l == 60)
-			{
-				menu_geral();
-			}
-			else if(l < 0 || l >= dime)
+			if(l < -1 || l >= dime)
 			{
 				apresenta_mensagem(" Linha invalida!\n");
 				limpatela();
@@ -94,16 +95,21 @@ void insere_cel()
 		}
 		while(1);
 		
+		if(l == -1)
+		{
+			break;
+		}
+		
 		do
 		{
 			c = coord_y();
 			
-			if(c < 0 || c >= dime)
+			if(c < -1 || c >= dime)
 			{
 				apresenta_mensagem(" Coluna invalida!\n");
 				limpatela();
 				titulo(2);
-				apresenta_mundo(mundo, dime);
+				apresenta_mundo(mundo, dime, celviz);
 			}
 			else
 			{
@@ -112,12 +118,17 @@ void insere_cel()
 		}
 		while(1);
 		
+		if(c == -1)
+		{
+			break;
+		}
+		
 		if(mundo[l][c] == 'O')
 		{
 			do
 			{
 				titulo(2);
-				apresenta_mundo(mundo, dime);
+				apresenta_mundo(mundo, dime, celviz);
 				ex = exclui(l,c);
 				
 				if(ex == 'S')
@@ -135,18 +146,9 @@ void insere_cel()
 		else
 		{
 			mundo[l][c] = 'O';
-			
 		}
-		
-		do
-		{
-			titulo(2);
-			apresenta_mundo(mundo, dime);
-			resp = continuar_inserindo();
-		}
-		while(resp != 'S' && resp != 'N');
 	}
-	while(resp == 'S');
+	while(1);
 }
 
 void limpa_mapa()
@@ -154,14 +156,14 @@ void limpa_mapa()
 	char r;
 	
 	titulo(3);
-	apresenta_mundo(mundo, dime);
+	apresenta_mundo(mundo, dime, celviz);
 	r = menu_limpa();
 	
 	if(r == 'S')
 	{
 		cria_mundo(dime);
 		titulo(3);
-		apresenta_mundo(mundo, dime);
+		apresenta_mundo(mundo, dime, celviz);
 		apresenta_mensagem(" Mundo reiniciado com sucesso!\n");
 		limpatela();
 	}
