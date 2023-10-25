@@ -1,5 +1,5 @@
 /*JVIDA-JIPP_View.cpp 
-10/10/2023
+25/10/2023
 Igor Costa
 Joao Avila Harduin
 Pedro Evaristo de Oliveira
@@ -10,6 +10,7 @@ Priscilla de Souza Jardim
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <Windows.h>
 
 int dimensao()
 {
@@ -31,14 +32,15 @@ int menu_geral()
 		printf(" ==================================\n");
 		printf(" 1-Apresentar o Mundo\n");
 		printf(" 2-Incluir/Excluir celulas vivas\n");
-		printf(" 3-Mostrar/Ocultar celulas vizinhas\n");
-		printf(" 4-Limpar totalmente o mapa\n");
-		printf(" 5-Sair\n");
+		printf(" 3-Iniciar o processo\n");
+		printf(" 4-Mostrar/Ocultar celulas vizinhas\n");
+		printf(" 5-Limpar totalmente o mapa\n");
+		printf(" 6-Sair\n");
 		printf(" ==================================\n");
 		printf(" Resp: ");
 		scanf("%d", &op);
 		
-		if(op < 0 || op > 5)
+		if(op < 0 || op > 6)
 		{
 			printf(" Opcao invalida!\n");
 			system("pause");
@@ -51,8 +53,10 @@ int menu_geral()
 	while(1);
 }
 
-void apresenta_mundo(char m[60][60], int dim, char celv)
+void apresenta_mundo(char m[60][60], int dim, char celv, int g)
 {	
+	int vivas = 0;
+	
 	printf(" ================================");
 	for(int k = 0; k < (dim-10); k++)
 	{
@@ -78,6 +82,10 @@ void apresenta_mundo(char m[60][60], int dim, char celv)
 			{
 				printf("%3c", m[i][j]);
 			}
+			if(m[i][j] == 'O')
+			{
+				vivas++;
+			}
 		}
 		printf("\n");
 	}
@@ -86,7 +94,8 @@ void apresenta_mundo(char m[60][60], int dim, char celv)
 	{
 		printf("===");
 	}
-	printf("\n\n");
+	
+	printf("\n GERACAO %d: %d Celulas vivas\n\n", g, vivas);
 }
 
 int coord_x()
@@ -146,9 +155,11 @@ void titulo(int op)
 			printf(" INCLUIR/EXCLUIR CELULAS\n");
 			break;
 		case 3:
+			printf(" SIMULACAO\n");
+		case 4:
 			printf(" MOSTRAR/OCULTAR CELULAS\n");
 			break;
-		case 4:
+		case 5:
 			printf(" LIMPAR O MAPA\n");
 			break;
 	}
@@ -196,4 +207,34 @@ char menu_cel_viz(char cel)
 		}
 	}
 	return cel;
+}
+
+int geracoes()
+{
+	int g;
+	
+	printf(" Quantas geracoes voce deseja simular? ");
+	scanf("%d", &g);
+	return g;
+}
+
+int passo()
+{
+	int p;
+	
+	printf(" Digite a velocidade da simulacao em seg (0 para passo a passo) ");
+	scanf("%d", &p);
+	return p;
+}
+
+void controla_passo(int p)
+{
+	if(p == 0)
+	{
+		system("pause");
+	}
+	else
+	{
+		Sleep(p*1000);
+	}
 }
