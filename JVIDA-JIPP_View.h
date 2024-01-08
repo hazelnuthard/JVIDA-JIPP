@@ -1,5 +1,5 @@
 /*JVIDA-JIPP_View.h 
-25/10/2023
+29/11/2023
 Igor Costa
 Joao Avila Harduin
 Pedro Evaristo de Oliveira
@@ -15,6 +15,7 @@ int passo();
 char exclui(int, int);  //confirma se o usuario deseja excluir a celula
 char menu_limpa();
 char menu_cel_viz(char cel);
+char muenuGeracoes();
 void apresenta_mundo(char, int, char);  //apresenta a matriz do mundo
 void limpatela();  //organiza melhor o codigo removendo acoes anteriores da tela
 void titulo(int);
